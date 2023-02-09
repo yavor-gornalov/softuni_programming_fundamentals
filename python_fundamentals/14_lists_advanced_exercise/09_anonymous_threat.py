@@ -1,4 +1,4 @@
-# https://judge.softuni.org/Contests/Compete/Index/1731#8
+# TODO: https://judge.softuni.org/Contests/Compete/Index/1731#8
 # TODO: check out code in Softuni Judge system
 
 
