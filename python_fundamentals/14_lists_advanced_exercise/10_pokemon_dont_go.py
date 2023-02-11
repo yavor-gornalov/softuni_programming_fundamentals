@@ -1,6 +1,4 @@
-# TODO: https://judge.softuni.org/Contests/Compete/Index/1731#9
-# TODO: check out code in Softuni Judge system
-
+# https://judge.softuni.org/Contests/Compete/Index/1731#9
 
 sequence = [int(x) for x in input().split()]
 sum_removed_elements = 0

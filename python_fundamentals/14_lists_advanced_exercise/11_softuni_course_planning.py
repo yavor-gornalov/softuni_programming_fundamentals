@@ -1,12 +1,11 @@
-# TODO: https://judge.softuni.org/Contests/Compete/Index/1731#10
-# TODO: check out code in Softuni Judge system
+# https://judge.softuni.org/Contests/Compete/Index/1731#10
 
 
 def add_lesson(seq, title): return seq.append(title) if title not in seq else seq
 
 
 def remove_lesson(seq, title):
-    return [seq.pop(seq.index(title)) if title in seq else seq for title in [title, f"Exercise:{title}"]]
+    return [seq.pop(seq.index(title)) if title in seq else seq for title in [title, f"{title}-Exercise"]]
 
 
 def insert_lesson(seq, title, index): return seq.insert(index, title) if title not in seq else seq
@@ -17,21 +16,19 @@ def swap_lesson(seq, title_1, title_2):
         index_1 = seq.index(title_1)
         index_2 = seq.index(title_2)
         seq[index_1], seq[index_2] = seq[index_2], seq[index_1]
-        if f"Exercise:{title_1}" and f"Exercise:{title_2}" in seq:
-            index_1 += 1
-            index_2 += 1
-            seq[index_1], seq[index_2] = seq[index_2], seq[index_1]
-        elif f"Exercise:{title_1}" in seq or f"Exercise:{title_2}" in seq:
-            seq.insert(index_2 + 1, seq.pop(index_1 + 1))
+        if f"{title_1}-Exercise" in seq:
+            seq.insert(seq.index(title_1) + 1, seq.pop(seq.index(f"{title_1}-Exercise")))
+        if f"{title_2}-Exercise" in seq:
+            seq.insert(seq.index(title_2) + 1, seq.pop(seq.index(f"{title_2}-Exercise")))
 
 
 def exercise(seq, title):
     if title in seq:
         index = seq.index(title)
-        insert_lesson(seq, f"Exercise:{title}", index + 1)
+        insert_lesson(seq, f"{title}-Exercise", index + 1)
     else:
         add_lesson(seq, title)
-        add_lesson(seq, f"Exercise:{title}")
+        add_lesson(seq, f"{title}-Exercise")
 
 
 # main
