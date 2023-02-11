@@ -1,23 +1,26 @@
-# TODO: https://judge.softuni.org/Contests/Compete/Index/1731#8
-# TODO: check out code in Softuni Judge system
+# https://judge.softuni.org/Contests/Compete/Index/1731#8
 
 
 def merge(seq, start, end):
-    merged_el = [seq[ind] for ind in range(len(seq)) if start <= ind <= end]
+    start = 0 if start < 0 else start
+    end = len(seq) - 1 if end > len(seq) - 1 else end
+    merged_el = [el for el in seq if start <= seq.index(el) <= end]
     seq = [el for el in seq if el not in merged_el]
-    seq.insert(start, "".join(merged_el).replace(",", ""))
+    seq.insert(start, "".join(merged_el))
     return seq
 
 
 def divide(seq, ind, cnt):
+    cnt = 1 if cnt < 1 else cnt
+    cnt = len(seq[ind]) if cnt > len(seq[ind]) else cnt
     current_el = seq[ind]
-    substrings_length = len(current_el) // cnt
     split_el = []
-    while len(current_el) >= 2 * substrings_length:
+    reminder = len(current_el) % cnt
+    substrings_length = len(current_el) // cnt
+    while len(current_el) > substrings_length + reminder:
         split_el.append(current_el[:substrings_length])
         current_el = current_el[substrings_length:]
-    else:
-        split_el.append(current_el)
+    split_el.append(current_el)
     seq.pop(ind)
     seq = seq[:ind] + split_el + seq[ind:]
     return seq
