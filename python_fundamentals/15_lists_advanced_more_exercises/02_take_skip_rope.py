@@ -1,5 +1,4 @@
 # https://judge.softuni.org/Contests/Practice/Index/1732#1
-# TODO: not finished
 
 input_string = input()
 non_number_list = [ch for ch in input_string if not ch.isnumeric()]
@@ -13,9 +12,10 @@ for index, value in enumerate(number_list):
         skip_list.append(number_list[index])  # odds
 
 result = []
+m, n = 0, 0
 for i in range(len(take_list)):
-    m, n = take_list[i], skip_list[i]
-    result += input_string[:m]
-    input_string = input_string[(m + n):]
+    n = m + take_list[i]
+    result += non_number_list[m:n]
+    m = n + skip_list[i]
 
 print("".join(result))
