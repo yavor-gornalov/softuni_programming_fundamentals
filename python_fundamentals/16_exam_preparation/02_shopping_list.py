@@ -26,4 +26,4 @@ while not command == "Go Shopping!":
 
     command = input()
 
-print(" ".join(product_list))
+print(", ".join(product_list))
