@@ -1,4 +1,5 @@
 # https://judge.softuni.org/Contests/Practice/Index/1744#1
+
 import re
 
 patterns = {
@@ -8,18 +9,16 @@ patterns = {
     "price": r"(?P<price>([0-9]|[1-9][0-9]+)(\.[0-9]+)?)\$$"
 }
 
-redex_patterns = {k: re.compile(val) for k, val in patterns.items()}
-
 total_price = 0
 while True:
     line = input()
     if line == "end of shift":
         break
     try:
-        name = re.search(redex_patterns["name"], line).group("name")
-        product = re.search(redex_patterns["product"], line).group("product")
-        count = re.search(redex_patterns["count"], line).group("count")
-        price = re.search(redex_patterns["price"], line).group("price")
+        name = re.search(patterns["name"], line).group("name")
+        product = re.search(patterns["product"], line).group("product")
+        count = re.search(patterns["count"], line).group("count")
+        price = re.search(patterns["price"], line).group("price")
     except AttributeError:
         continue
     current_price = int(count) * float(price)

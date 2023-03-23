@@ -6,16 +6,14 @@ racers = input().split(", ")
 racers_distance = dict.fromkeys(racers, 0)
 
 letters_pattern = r"[A-Z]|[a-z]+"
-letters_regex = re.compile(letters_pattern)
 digits_pattern = r"\d"
-digits_regex = re.compile(digits_pattern)
 
 while True:
     line = input()
     if line == "end of race":
         break
-    name = "".join(re.findall(letters_regex, line))
-    digits = re.findall(digits_regex, line)
+    name = "".join(re.findall(letters_pattern, line))
+    digits = re.findall(digits_pattern, line)
     current_distance = sum([int(digit) for digit in digits])
     if name in racers_distance:
         racers_distance[name] += current_distance
