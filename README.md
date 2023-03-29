@@ -34,7 +34,7 @@ This repository contains simple exercises solved during the Programming Fundamen
   28. [Final Exam Preparation](python_fundamentals/28_final_exam_preparation)
 
 **II. Fundamentals Exams**
-  1. [Programming Fundamentals Mid Exam Retaket](fundamentals_exams/01_pf_mid_exam_retake)
+  1. [Programming Fundamentals Mid Exam Retake](fundamentals_exams/01_pf_mid_exam_retake)
   2. [Programming Fundamentals Final Exam Retake](fundamentals_exams/01_pf_final_exam_retake)
   3. [Programming Fundamentals Mid Exam](fundamentals_exams/02_pf_mid_exam)
   4. [Programming Fundamentals Final Exam](fundamentals_exams/02_pf_final_exam)
