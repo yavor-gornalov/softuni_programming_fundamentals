@@ -1,6 +1,6 @@
 # Programming Fundamentals with Python
 
-This repository contains simple exercises solved during the Programming Fundamentals Course at Softuni. Exercises are divided into separate files, each of the files contains link to Softuni judge system at the beginning. Judge system should be used for testing the code, terms of the exercises also could be found there.
+    This repository contains simple exercises solved during the Programming Fundamentals Course at Softuni. Exercises are divided into separate files, each of the files contains link to Softuni judge system at the beginning. Judge system should be used for testing the code, terms of the exercises also could be found there.
 
 ### Contents:
 **I. Python Fundamentals**
