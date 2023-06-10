@@ -1,21 +1,23 @@
 # https://judge.softuni.org/Contests/Practice/Index/1732#1
 
-input_string = input()
-non_number_list = [ch for ch in input_string if not ch.isnumeric()]
-number_list = [int(n) for n in input_string if n not in non_number_list]
+hidden_message = input()
 
-take_list, skip_list = [], []
-for index, value in enumerate(number_list):
-    if not index % 2:
-        take_list.append(number_list[index])  # evens
+text, take_list, skip_list = [], [], []
+
+is_even_idx = True  # idx starts always from 0, zero is even
+for char in hidden_message:
+    if char.isnumeric():
+        take_list.append(int(char)) if is_even_idx else skip_list.append(int(char))
+        is_even_idx = not is_even_idx
     else:
-        skip_list.append(number_list[index])  # odds
+        text.append(char)
 
-result = []
-m, n = 0, 0
+message = []
+current_idx = 0
 for i in range(len(take_list)):
-    n = m + take_list[i]
-    result += non_number_list[m:n]
-    m = n + skip_list[i]
+    take_count = take_list[i]
+    skip_count = skip_list[i]
+    message.extend(text[current_idx:current_idx + take_count])
+    current_idx += take_count + skip_count
 
-print("".join(result))
+print(*message, sep="")
