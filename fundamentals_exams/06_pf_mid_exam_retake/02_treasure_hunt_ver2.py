@@ -1,29 +1,25 @@
 # https://judge.softuni.org/Contests/Practice/Index/1773#1
 
-treasure = [x for x in input().split("|")]
+treasure_items = [x for x in input().split("|")]
 
-is_empty, command = False, input()
-while not command == "Yohoho!":
-    command_args = command.split()
-    command = command_args.pop(0)
+line = input()
+while line != "Yohoho!":
+    command, *tokens = line.split()
     if command == "Loot":
-        items = [item for item in command_args if item not in treasure]
-        [treasure.insert(0, x) for x in items]
+        for item in tokens:
+            treasure_items.insert(0, item) if item not in treasure_items else None
     elif command == "Drop":
-        index = int(command_args[0])
-        if 0 <= index < len(treasure):
-            treasure.append(treasure.pop(index))
+        index = int(tokens[0])
+        treasure_items.append(treasure_items.pop(index)) if 0 <= index < len(treasure_items) else None
     elif command == "Steal":
-        count = int(command_args[0])
-        if count >= len(treasure):
-            is_empty = True
-        stolen_items = treasure[-count:]
-        print(', '.join(stolen_items))
-        treasure = treasure[:-count]
-    command = input()
+        count = int(tokens[0])
+        stolen_items = [treasure_items.pop() for _ in range(min(len(treasure_items), count))]
+        print(*stolen_items[::-1], sep=", ")
 
-if is_empty:
-    print("Failed treasure hunt.")
+    line = input()
+
+if treasure_items:
+    average_treasure_gain = sum([len(x) for x in treasure_items]) / len(treasure_items)
+    print(f"Average treasure gain: {average_treasure_gain:.2f} pirate credits.")
 else:
-    average_gain = sum(len(item) for item in treasure) / len(treasure) if treasure else 0
-    print(f"Average treasure gain: {average_gain:.2f} pirate credits.")
+    print("Failed treasure hunt.")
