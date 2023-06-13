@@ -1,51 +1,51 @@
 # https://judge.softuni.org/Contests/Practice/Index/1773#2
 
+def invalid_index(idx, ship):
+    return not 0 <= idx < len(ship)
+
+
+def ship_status(ship):
+    return len([s for s in ship if s < max_section_health / 5])
+
+
 pirate_ship = [int(x) for x in input().split(">")]
-war_ship = [int(x) for x in input().split(">")]
-max_health_capacity = int(input())
+warship = [int(x) for x in input().split(">")]
+max_section_health = int(input())
 
-ship_destroyed = False
-while not ship_destroyed:
-    command = input()
-    if command == "Retire":
+stalemate = True
+while True:
+    line = input()
+    if line == "Retire":
         break
+    command, *tokens = line.split()
 
-    arguments = command.split()
-    command = arguments[0]
     if command == "Fire":
-        index = int(arguments[1])
-        if not 0 <= index < len(war_ship):
+        index, damage = [int(x) for x in tokens]
+        if invalid_index(index, warship):
             continue
-        damage = int(arguments[2])
-        war_ship[index] -= damage
-        if war_ship[index] <= 0:
+        if warship[index] <= damage:
+            stalemate = False
             print("You won! The enemy ship has sunken.")
-            ship_destroyed = True
+            break
+        warship[index] -= damage
     elif command == "Defend":
-        start_index = int(arguments[1])
-        end_index = int(arguments[2])
-        if not 0 <= start_index < end_index < len(pirate_ship):
+        start_index, end_index, damage = [int(x) for x in tokens]
+        if invalid_index(start_index, pirate_ship) or invalid_index(end_index, pirate_ship):
             continue
-        damage = int(arguments[3])
-        for index in range(start_index, end_index + 1):
-            pirate_ship[index] -= damage
-            if pirate_ship[index] <= 0:
-                print("You lost! The pirate ship has sunken.")
-                ship_destroyed = True
-                break
-
+        if any(s < damage for s in pirate_ship[start_index:end_index + 1]):
+            stalemate = False
+            print("You lost! The pirate ship has sunken.")
+            break
+        for i in range(start_index, end_index + 1):
+            pirate_ship[i] -= damage
     elif command == "Repair":
-        index = int(arguments[1])
-        if not 0 <= index < len(pirate_ship):
+        index, health = [int(x) for x in tokens]
+        if invalid_index(index, pirate_ship):
             continue
-        health = int(arguments[2])
-        pirate_ship[index] = min(max_health_capacity, pirate_ship[index] + health)
-
+        pirate_ship[index] = min(pirate_ship[index] + health, max_section_health)
     elif command == "Status":
-        low_capacity_limit = 0.20 * max_health_capacity
-        sections_for_repair = sum([1 if x < low_capacity_limit else 0 for x in pirate_ship])
-        print(f"{sections_for_repair} sections need repair.")
+        print(f"{ship_status(pirate_ship)} sections need repair.")
 
-if not ship_destroyed:
+if stalemate:
     print(f"Pirate ship status: {sum(pirate_ship)}\n"
-          f"Warship status: {sum(war_ship)}")
+          f"Warship status: {sum(warship)}")
